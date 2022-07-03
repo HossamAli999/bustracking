@@ -10,9 +10,9 @@
         <link rel="shortcut icon" href="assets/images/favicon.ico">
         <script src="https://kit.fontawesome.com/06cccea7d4.js" crossorigin="anonymous"></script>
         <!-- App css -->
-        <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/app-modern.min.css" rel="stylesheet" type="text/css" id="light-style" />
-        <link href="assets/css/app-modern-dark.min.css" rel="stylesheet" type="text/css" id="dark-style" />
+        <link href="{{ asset("assets/css/icons.min.css")}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset("assets/css/app-modern.min.css")}}" rel="stylesheet" type="text/css" id="light-style" />
+        <link href="{{ asset("assets/css/app-modern-dark.min.css")}}" rel="stylesheet" type="text/css" id="dark-style" />
 
     </head>
 
@@ -25,10 +25,10 @@
                 <!-- LOGO -->
                 <a href="{{route('home')}}" class="topnav-logo">
                     <span class="topnav-logo-lg">
-                        <img src="assets/images/logo-light.png" alt="" height="16">
+                        <img src="{{ asset("assets/images/logo-light.png")}}" alt="" height="16">
                     </span>
                     <span class="topnav-logo-sm">
-                        <img src="assets/images/logo_sm.png" alt="" height="16">
+                        <img src="{{ asset("assets/images/logo_sm.png")}}" alt="" height="16">
                     </span>
                 </a>
 
@@ -540,17 +540,17 @@
 
 
         <!-- bundle -->
-        <script src="assets/js/vendor.min.js"></script>
-        <script src="assets/js/app.min.js"></script>
+        <script src="{{ asset("assets/js/vendor.min.js")}}"></script>
+        <script src="{{ asset("assets/js/app.min.js")}}"></script>
 
         <!-- Apex js -->
-        <script src="assets/js/vendor/apexcharts.min.js"></script>
+        <script src="{{ asset("assets/js/vendor/apexcharts.min.js")}}"></script>
 
         <!-- Todo js -->
-        <script src="assets/js/ui/component.todo.js"></script>
+        <script src="{{ asset("assets/js/ui/component.todo.js")}}"></script>
 
         <!-- demo app -->
-        <script src="assets/js/pages/demo.dashboard-crm.js"></script>
+        <script src="{{ asset("assets/js/pages/demo.dashboard-crm.js")}}"></script>
         <!-- end demo js-->
         
     </body>

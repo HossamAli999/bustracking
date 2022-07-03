@@ -2,8 +2,39 @@
 @extends('layouts.master')
 
 @section('content') 
-<head><link href="{{ asset("css/school.css")}}" rel="stylesheet"></head>
+<div class="content-page">
+    <div class="content">
+        
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box">
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="{{ route('home')}}">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Google Maps</li>
+                        </ol>
+                    </div>
+                    <h4 class="page-title">School on Map</h4>
+                </div>
+            </div>
+        </div>     
+        <!-- end page title --> 
 
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title mb-3">{{$school->name}} School   #{{$school->code}}</h4>
+                        <div id="gmaps-markers" class="gmaps"></div>
+                    </div> <!-- end card-body-->
+                </div> <!-- end card-->
+            </div> <!-- end col-->
+        </div>
+        <!-- end row-->
+    </div> <!-- End Content -->
+
+{{-- ///////////////////////////////////////////////////////////// --}}
 <div class="schools_wrapper">
     @if (Auth::user()->school_id == NULL && Auth::user()->is_admin == 0) {{-- if user is a Clerk & if user is a school admin and not assigned to a school --}}
         <!-- Join School Card -->
@@ -49,9 +80,6 @@
     @if (Auth::user()->school_id  ==! NULL)  {{-- if user is assigned to a school --}}
     <!-- School Main Card -->
     <div class="card" style="width: 90%;" id="schoolCard">
-        <div class="card-body">
-            <h5 class="card-title" style="color: #384850">{{$school->name}} School<span class="card-code">#{{$school->code}}</span></h5>
-            <div class="card-map" id="map"></div>
             <div class="card-foot mt-2">
             @if (Auth::user()->is_admin == 0) {{-- if user is a clerk --}}
                 <form action="{{route('school.left',$school->id)}}" method="POST">
@@ -91,7 +119,7 @@
     </div>
 
     <!-- tracking.js  -->
-    <script src=" {{ asset("js/school.js") }}"></script>
+    {{-- <script src=" {{ asset("js/school.js") }}"></script>
     <script>
         getLocation = () => {
             navigator.geolocation.getCurrentPosition(({coords: {latitude, longitude}}) => {
@@ -162,23 +190,29 @@
             marker.classList = 'school';
             new mapboxgl.Marker(marker).setLngLat(schoolLocation.data).addTo(map);
         })
-    </script>
-</div>
+    </script> --}}
 
 
-@if (session('success'))
-<div class="alertg hide">
-<span class='fas fa-check-circle'></span>
-<span class="msg">{{ session('success') }}</span>
-<div class="close-btn">
-   <span class="fas fa-times"></span>
-</div>
-</div>
-@endif  
 
-@if (session('error'))
-<div class="alert alert-danger" role="alert">
-    {{ session('error') }}
-</div>
-@endif
+<!-- third party js -->
+<script>
+     var map;
+     var geocoder;
+     function loadMap() {
+     var pune = {lat: {{$school->lit}}, lng: {{$school->lng}}};
+     map = new google.maps.Map(document.getElementById('gmaps-markers'), {
+     zoom: 20,
+     center: pune});
+  
+     var marker = new google.maps.Marker({
+         position: pune,
+         map: map
+    });
+    }
+</script> 
+<!-- third party js ends -->
+<!-- google maps api -->
+<script async defer
+     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDskOW3xxn9NdqjurULTFKCORZbBZX7boY&callback=loadMap">
+</script>
 @endsection
