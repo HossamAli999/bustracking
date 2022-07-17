@@ -60,20 +60,11 @@
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
                                 <img src="assets/images/flags/italy.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Italian</span>
                             </a>
-                    
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <img src="assets/images/flags/spain.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Spanish</span>
-                            </a>
-    
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <img src="assets/images/flags/russia.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Russian</span>
-                            </a>
+
     
                         </div>
                     </li>
-    
+                   
                     <li class="dropdown notification-list">
                         <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" id="topbar-notifydrop" role="button" aria-haspopup="true" aria-expanded="false">
                             <i class="dripicons-bell noti-icon"></i>
@@ -162,65 +153,18 @@
     
                         </div>
                     </li>
-
-                    <li class="dropdown notification-list d-none d-sm-inline-block">
-                        <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                            <i class="dripicons-view-apps noti-icon"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated dropdown-lg p-0">
-    
-                            <div class="p-2">
-                                <div class="row g-0">
-                                    <div class="col">
-                                        <a class="dropdown-icon-item" href="#">
-                                            <img src="assets/images/brands/slack.png" alt="slack">
-                                            <span>Slack</span>
-                                        </a>
-                                    </div>
-                                    <div class="col">
-                                        <a class="dropdown-icon-item" href="#">
-                                            <img src="assets/images/brands/github.png" alt="Github">
-                                            <span>GitHub</span>
-                                        </a>
-                                    </div>
-                                    <div class="col">
-                                        <a class="dropdown-icon-item" href="#">
-                                            <img src="assets/images/brands/dribbble.png" alt="dribbble">
-                                            <span>Dribbble</span>
-                                        </a>
-                                    </div>
-                                </div>
-    
-                                <div class="row g-0">
-                                    <div class="col">
-                                        <a class="dropdown-icon-item" href="#">
-                                            <img src="assets/images/brands/bitbucket.png" alt="bitbucket">
-                                            <span>Bitbucket</span>
-                                        </a>
-                                    </div>
-                                    <div class="col">
-                                        <a class="dropdown-icon-item" href="#">
-                                            <img src="assets/images/brands/dropbox.png" alt="dropbox">
-                                            <span>Dropbox</span>
-                                        </a>
-                                    </div>
-                                    <div class="col">
-                                        <a class="dropdown-icon-item" href="#">
-                                            <img src="assets/images/brands/g-suite.png" alt="G Suite">
-                                            <span>G Suite</span>
-                                        </a>
-                                    </div>
-                
-                                </div>
-                            </div>
-    
-                        </div>
-                    </li>
-
                     <li class="notification-list">
-                        <a class="nav-link end-bar-toggle" href="javascript: void(0);">
-                            <i class="dripicons-gear noti-icon"></i>
-                        </a>
+                        {{-- @if () --}}
+                          {{-- <div class="form-check form-switch mb-1">
+                            <input type="checkbox" class="form-check-input" name="color-scheme-mode" value="light"
+                                id="light-mode-check" checked />
+                            <label class="form-check-label" for="light-mode-check">Light Mode</label>
+                        </div>   --}}
+                        {{-- @else --}}
+                            <input type="checkbox" class="form-check-input" name="color-scheme-mode" value="dark"
+                                id="dark-mode-check" />
+                        
+                        {{-- @endif --}}
                     </li>
     
                     <li class="dropdown notification-list">
@@ -245,19 +189,7 @@
                                 <i class="mdi mdi-account-circle me-1"></i>
                                 <span>My Account</span>
                             </a>
-    
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <i class="mdi mdi-account-edit me-1"></i>
-                                <span>Settings</span>
-                            </a>
-    
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <i class="mdi mdi-lifebuoy me-1"></i>
-                                <span>Support</span>
-                            </a>
-    
+        
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
                                 <i class="mdi mdi-lock-outline me-1"></i>
@@ -265,10 +197,17 @@
                             </a>
     
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <i class="mdi mdi-logout me-1"></i>
-                                <span>Logout</span>
-                            </a>
+                            <a href="{{ route('logout') }}" 
+                            onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();"
+                            class="dropdown-item notify-item" >
+                            <i class="mdi mdi-logout me-1"></i> 
+                            <span>Logout</span>
+                        </a> 
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                             class="d-none">
+                             @csrf
+                            </form>    
     
                         </div>
                     </li>
@@ -376,6 +315,7 @@
                         </li>
 
                         <li class="side-nav-title side-nav-item">Actions</li>
+                        {{-- for school --}}
                         <li class="side-nav-item">
                         @if (Auth::user()->school_id == NULL)
                         <a href="{{route('school.index', Auth::user()->id)}}" class="side-nav-link">     
@@ -383,65 +323,24 @@
                            <a href="{{route('school.index', Auth::user()->school_id)}}" class="side-nav-link">     
                         @endif
                         <i class="fa-solid fa-school"></i>
-                                {{-- <i class="uil:bus-school"></i> --}}
                                 <span> School </span>
                             </a>
                         </li>
-                        {{-- <li class="side-nav-item">
-                            <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
-                                <i class="uil-store"></i>
-                                <span> School </span>
-                                <span class="menu-arrow"></span>
-                            </a>
-                            <div class="collapse" id="sidebarEcommerce">
-                                <ul class="side-nav-second-level">
-                                    <li>
-                                        <a href="apps-ecommerce-products.html">Products</a>
-                                    </li>
-                                    <li>
-                                        <a href="apps-ecommerce-products-details.html">Products Details</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li> --}}
-
+                        @if (Auth::user()->is_admin == 1)
                         <li class="side-nav-item">
-                            <a data-bs-toggle="collapse" href="#sidebarEmail" aria-expanded="false" aria-controls="sidebarEmail" class="side-nav-link">
-                                <i class="uil-envelope"></i>
-                                <span> Email </span>
-                                <span class="menu-arrow"></span>
+                           <a href="{{route('father.index')}}" class="side-nav-link">     
+                            <i class="fa-solid fa-people-line"></i>
+                            <span> Fathers </span>
                             </a>
-                            <div class="collapse" id="sidebarEmail">
-                                <ul class="side-nav-second-level">
-                                    <li>
-                                        <a href="apps-email-inbox.html">Inbox</a>
-                                    </li>
-                                    <li>
-                                        <a href="apps-email-read.html">Read Email</a>
-                                    </li>
-                                </ul>
-                            </div>
                         </li>
-
                         <li class="side-nav-item">
-                            <a data-bs-toggle="collapse" aria-expanded="false"  class="side-nav-link">
-                                <i class="uil-envelope"></i>
-                                <span> Email </span>
-                                <span class="menu-arrow"></span>
+                           <a href="{{route('driver.index')}}" class="side-nav-link">     
+                            <i class="fa-solid fa-users-gear"></i>
+                            <span> Drivers </span>
                             </a>
-                            <div class="collapse" id="sidebarEmail">
-                                <ul class="side-nav-second-level">
-                                    <li>
-                                        <a href="apps-email-inbox.html">Inbox</a>
-                                    </li>
-                                    <li>
-                                        <a href="apps-email-read.html">Read Email</a>
-                                    </li>
-                                </ul>
-                            </div>
                         </li>
-
-                   
+                        @endif
+                    
                     <!-- End Sidebar -->
 
                     <div class="clearfix"></div>
@@ -476,64 +375,6 @@
             </div> <!-- end wrapper-->
         </div>
         <!-- END Container -->
-
-
-        <!-- Right Sidebar -->
-        <div class="end-bar">
-
-            <div class="rightbar-title">
-                <a href="javascript:void(0);" class="end-bar-toggle float-end">
-                    <i class="dripicons-cross noti-icon"></i>
-                </a>
-                <h5 class="m-0">Settings</h5>
-            </div>
-
-            <div class="rightbar-content h-100" data-simplebar>
-
-                <div class="p-3">
-                    <div class="alert alert-warning" role="alert">
-                        <strong>Customize </strong> the overall color scheme, sidebar menu, etc.
-                    </div>
-
-                    <!-- Settings -->
-                    <h5 class="mt-3">Color Scheme</h5>
-                    <hr class="mt-1" />
-
-                    <div class="form-check form-switch mb-1">
-                        <input type="checkbox" class="form-check-input" name="color-scheme-mode" value="light"
-                            id="light-mode-check" checked />
-                        <label class="form-check-label" for="light-mode-check">Light Mode</label>
-                    </div>
-
-                    <div class="form-check form-switch mb-1">
-                        <input type="checkbox" class="form-check-input" name="color-scheme-mode" value="dark"
-                            id="dark-mode-check" />
-                        <label class="form-check-label" for="dark-mode-check">Dark Mode</label>
-                    </div>
-
-                    <!-- Left Sidebar-->
-                    <h5 class="mt-4">Left Sidebar</h5>
-                    <hr class="mt-1" />
-
-                    <div class="form-check form-switch mb-1">
-                        <input type="checkbox" class="form-check-input" name="compact" value="fixed" id="fixed-check"
-                            checked />
-                        <label class="form-check-label" for="fixed-check">Scrollable</label>
-                    </div>
-
-                    <div class="form-check form-switch mb-1">
-                        <input type="checkbox" class="form-check-input" name="compact" value="condensed"
-                            id="condensed-check" />
-                        <label class="form-check-label" for="condensed-check">Condensed</label>
-                    </div>
-
-                   <div class="d-grid mt-4">
-                    <button class="btn btn-primary" id="resetBtn">Reset to Default</button>
-                   </div>
-                </div> <!-- end padding-->
-
-            </div>
-        </div>
 
         <div class="rightbar-overlay"></div>
         <!-- /End-bar -->
@@ -666,15 +507,6 @@
                 </div>
             </a>
 
-            <a><li class="list-group-item mt-2" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse-2" aria-expanded="false">
-                <i class="fa fa fa-users"></i> &nbsp;Parents</li>
-                <div class="collapse" id="dashboard-collapse-2">
-                    <ul class="btn-toggle-nav list-unstyled">
-                        <li><a href="{{route('father.index')}}" class="list-group-item mt-2 sidebar-dropdown-item" ><i class="fa fa-users"></i> &nbsp;Show Parents</a></li>
-                        <li><a href="{{route('father.create')}}" class="list-group-item mt-2 sidebar-dropdown-item" ><i class="fa fa-plus-square-o"></i> &nbsp;Add New Parent</a></li>
-                    </ul>
-                </div>
-            </a>
 
             <a><li class="list-group-item mt-2" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse-vehicles" aria-expanded="false">
                 <i class="fa fa-bus"></i> &nbsp;Vehicles </li>  
